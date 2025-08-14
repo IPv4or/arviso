@@ -19,6 +19,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
         }
         .font-cutive-mono {
             font-family: 'Cutive Mono', monospace;
@@ -62,20 +63,29 @@
         .link-hover:hover {
             color: var(--locality-blue);
         }
-        /* --- Marquee Styles --- */
+        
+        /* --- New, More Robust Marquee Styles --- */
         .marquee {
+            display: flex;
             overflow: hidden;
-            white-space: nowrap;
-            box-sizing: border-box;
+            user-select: none;
+            gap: 1rem;
         }
-        .marquee span {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 20s linear infinite;
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 1rem;
+            animation: marquee 30s linear infinite;
         }
         @keyframes marquee {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(calc(-100% - 1rem));
+            }
         }
     </style>
 </head>
@@ -103,15 +113,22 @@
 
             <!-- SoundCloud Player -->
             <div class="my-12 md:my-16 max-w-2xl mx-auto shadow-2xl border-2 border-white rounded-lg overflow-hidden">
-                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2151645870&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2151645870&color=%23ffffff&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=true"></iframe>
             </div>
 
             <!-- Local Showcase Marquee -->
             <div class="my-20 md:my-24">
                  <div class="border-y-2 border-white py-2 marquee">
-                    <p class="font-cutive-mono text-lg md:text-2xl font-bold text-accent-orange">
-                        <span>ISLAND MARKET • CAFFE IBIS • CACHE VALLEY • CENTER STREET • MORTY'S CAFE • ISLAND MARKET • THE CACHE • MAIN STREET •</span>
-                    </p>
+                    <div class="marquee-content">
+                        <p class="font-cutive-mono text-lg md:text-2xl font-bold text-accent-orange whitespace-nowrap">
+                            ISLAND MARKET • CAFFE IBIS • CACHE VALLEY • CENTER STREET • MORTY'S CAFE • ISLAND MARKET • THE CACHE • MAIN STREET •
+                        </p>
+                    </div>
+                    <div class="marquee-content" aria-hidden="true">
+                        <p class="font-cutive-mono text-lg md:text-2xl font-bold text-accent-orange whitespace-nowrap">
+                            ISLAND MARKET • CAFFE IBIS • CACHE VALLEY • CENTER STREET • MORTY'S CAFE • ISLAND MARKET • THE CACHE • MAIN STREET •
+                        </p>
+                    </div>
                 </div>
             </div>
             
